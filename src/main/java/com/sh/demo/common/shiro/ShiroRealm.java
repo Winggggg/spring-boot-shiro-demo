@@ -43,9 +43,9 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        //获取用户ID
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         SysUserEntity sysUserEntity = (SysUserEntity) principalCollection.getPrimaryPrincipal();
-        //获取用户ID
         Long userId =sysUserEntity.getUserId();
         //这里可以进行授权和处理
         Set<String> rolesSet = new HashSet<>();
@@ -84,10 +84,10 @@ public class ShiroRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user,                                  //用户名
                 user.getPassword(),                    //密码
-                ByteSource.Util.bytes(user.getSalt()), //salt=username+salt
+                ByteSource.Util.bytes(user.getSalt()), //设置盐值
                 getName()
         );
-        //验证成功开始踢人
+        //验证成功开始踢人(清除缓存和Session)
         ShiroUtils.deleteCache(username,true);
         return authenticationInfo;
     }
