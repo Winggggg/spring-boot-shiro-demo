@@ -14,7 +14,6 @@ import java.io.Serializable;
  * @CreateTime 2019/6/13 8:34
  */
 public class ShiroSessionManager extends DefaultWebSessionManager {
-
     //定义常量
     private static final String AUTHORIZATION = "Authorization";
     private static final String REFERENCED_SESSION_ID_SOURCE = "Stateless request";
@@ -23,9 +22,9 @@ public class ShiroSessionManager extends DefaultWebSessionManager {
         super();
         this.setDeleteInvalidSessions(true);
     }
-
     /**
      * 重写方法实现从请求头获取Token
+     *
      * @Author Sans
      * @CreateTime 2019/6/13 8:47
      */

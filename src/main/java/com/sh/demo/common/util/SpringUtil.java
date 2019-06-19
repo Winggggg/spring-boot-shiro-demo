@@ -12,9 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SpringUtil implements ApplicationContextAware {
-
     private static ApplicationContext context;
-
     /**
      * Spring在bean初始化后会判断是不是ApplicationContextAware的子类
      * 如果该类是,setApplicationContext()方法,会将容器中ApplicationContext作为参数传入进去
@@ -25,7 +23,6 @@ public class SpringUtil implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         context = applicationContext;
     }
-
     /**
      * 通过Name返回指定的Bean
      * @Author Sans
@@ -34,23 +31,4 @@ public class SpringUtil implements ApplicationContextAware {
     public static <T> T getBean(Class<T> beanClass) {
         return context.getBean(beanClass);
     }
-    
-    /**
-     * 通过Name返回指定的Bean
-     * @Author Sans
-     * @CreateTime 2019/6/17 16:50
-     */
-    public static Object getBean(String beanName) {
-        return context.getBean(beanName);
-    }
-    
-    /**
-     * 通过Name以及Class返回指定的Bean
-     * @Author Sans
-     * @CreateTime 2019/6/17 16:50
-     */
-    public static <T> T getBean(String beanName, Class<T> beanClass) {
-        return context.getBean(beanName, beanClass);
-    }
-    
 }

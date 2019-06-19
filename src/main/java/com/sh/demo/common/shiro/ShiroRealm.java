@@ -7,7 +7,6 @@ import com.sh.demo.core.entity.SysUserEntity;
 import com.sh.demo.core.service.SysMenuService;
 import com.sh.demo.core.service.SysRoleService;
 import com.sh.demo.core.service.SysUserService;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -15,15 +14,9 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -57,7 +50,7 @@ public class ShiroRealm extends AuthorizingRealm {
         //这里可以进行授权和处理
         Set<String> rolesSet = new HashSet<>();
         Set<String> permsSet = new HashSet<>();
-        //查询角色和权限
+        //查询角色和权限(这里根据业务自行查询)
         List<SysRoleEntity> sysRoleEntityList = sysRoleService.selectSysRoleByUserId(userId);
         for (SysRoleEntity sysRoleEntity:sysRoleEntityList) {
             rolesSet.add(sysRoleEntity.getRoleName());
@@ -66,6 +59,7 @@ public class ShiroRealm extends AuthorizingRealm {
                 permsSet.add(sysMenuEntity.getPerms());
             }
         }
+        //将查到的权限和角色分别传入authorizationInfo中
         authorizationInfo.setStringPermissions(permsSet);
         authorizationInfo.setRoles(rolesSet);
         return authorizationInfo;

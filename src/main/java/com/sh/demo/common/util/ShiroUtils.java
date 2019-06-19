@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * @Description Shiro工具
+ * @Description Shiro工具类
  * @Author Sans
  * @CreateTime 2019/6/15 16:11
  */
@@ -95,5 +95,4 @@ public class ShiroUtils {
         Authenticator authc = securityManager.getAuthenticator();
         ((LogoutAware) authc).onLogout((SimplePrincipalCollection) attribute);
     }
-
 }
