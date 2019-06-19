@@ -1,9 +1,8 @@
 # spring-boot-shiro-demo
 
-#### 项目介绍
-SpringBoot整合Shiro示例
+#### 项目介绍:
+SpringBoot整合Shiro示例实现动态权限加载更新+Session共享+单点登录
 
-SpringBoot 整合Shiro实现动态权限加载更新+Session共享+单点登录
 
 相关文章请移步到:暂无
 
@@ -18,6 +17,7 @@ Shiro版本:1.4
 Shiro-redis插件版本:3.1.0
 
 #### 表结构:
+SQL脚本在项目中
 ``` sql
 CREATE TABLE `sys_menu` (
   `menu_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '权限ID',
