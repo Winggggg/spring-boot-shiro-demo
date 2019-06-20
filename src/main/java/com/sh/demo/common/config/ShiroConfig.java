@@ -27,9 +27,11 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    private static final String CACHE_KEY = "shiro:cache:";
-    private static final String SESSION_KEY = "shiro:session:";
+    private final String CACHE_KEY = "shiro:cache:";
+    private final String SESSION_KEY = "shiro:session:";
+    private final int EXPIRE = 1800;
 
+    //Redis配置
     @Value("${spring.redis.host}")
     private String host;
     @Value("${spring.redis.port}")
@@ -38,8 +40,6 @@ public class ShiroConfig {
     private int timeout;
     @Value("${spring.redis.password}")
     private String password;
-    //缓存过期时间
-    private int expire = 1800;
 
     /**
      * 开启Shiro-aop注解支持
@@ -65,8 +65,6 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 注意过滤器配置顺序不能颠倒
-        // 配置退出:过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl
-        // filterChainDefinitionMap.put("/logout", "logout"); 前后分离项目这里应该用不上
         // 配置过滤:不会被拦截的链接
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/userLogin/**", "anon");
@@ -85,11 +83,11 @@ public class ShiroConfig {
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        // 自定义session管理
+        // 自定义Ssession管理
         securityManager.setSessionManager(sessionManager());
-        // 自定义缓存实现
+        // 自定义Cache实现
         securityManager.setCacheManager(cacheManager());
-        // 使用自定义验证
+        // 自定义Realm验证
         securityManager.setRealm(shiroRealm());
         return securityManager;
     }
@@ -140,7 +138,7 @@ public class ShiroConfig {
 
     /**
      * 配置Cache管理器
-     * 用于往Redis存储权限
+     * 用于往Redis存储权限和角色标识
      * @Attention 使用的是shiro-redis开源插件
      * @Author Sans
      * @CreateTime 2019/6/12 12:37
@@ -177,7 +175,7 @@ public class ShiroConfig {
         redisSessionDAO.setRedisManager(redisManager());
         redisSessionDAO.setSessionIdGenerator(sessionIdGenerator());
         redisSessionDAO.setKeyPrefix(SESSION_KEY);
-        redisSessionDAO.setExpire(expire);
+        redisSessionDAO.setExpire(EXPIRE);
         return redisSessionDAO;
     }
 

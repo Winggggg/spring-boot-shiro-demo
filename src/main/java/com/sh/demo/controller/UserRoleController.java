@@ -1,5 +1,6 @@
 package com.sh.demo.controller;
 
+import com.sh.demo.common.util.ShiroUtils;
 import com.sh.demo.core.service.SysMenuService;
 import com.sh.demo.core.service.SysRoleMenuService;
 import com.sh.demo.core.service.SysRoleService;
@@ -35,7 +36,7 @@ public class UserRoleController {
      * 管理员角色测试接口
      * @Author Sans
      * @CreateTime 2019/6/19 10:38
-     * @Return Map<String,Object>
+     * @Return Map<String,Object> 返回结果
      */
     @RequestMapping("/getAdminInfo")
     @RequiresRoles("ADMIN")
@@ -50,7 +51,7 @@ public class UserRoleController {
      * 用户角色测试接口
      * @Author Sans
      * @CreateTime 2019/6/19 10:38
-     * @Return Map<String,Object>
+     * @Return Map<String,Object> 返回结果
      */
     @RequestMapping("/getUserInfo")
     @RequiresRoles("USER")
@@ -65,7 +66,7 @@ public class UserRoleController {
      * 角色测试接口
      * @Author Sans
      * @CreateTime 2019/6/19 10:38
-     * @Return Map<String,Object>
+     * @Return Map<String,Object> 返回结果
      */
     @RequestMapping("/getRoleInfo")
     @RequiresRoles(value={"ADMIN","USER"},logical = Logical.OR)
@@ -74,6 +75,23 @@ public class UserRoleController {
         Map<String,Object> map = new HashMap<>();
         map.put("code",200);
         map.put("msg","这里是只要有ADMIN或者USER角色能访问的接口");
+        return map;
+    }
+
+    /**
+     * 登出
+     * @Author Sans
+     * @CreateTime 2019/6/19 10:38
+     * @Return Map<String,Object> 返回结果
+     */
+    @RequestMapping("/getLogout")
+    @RequiresUser
+    public Map<String,Object> getLogout(){
+        //登出Shiro会帮我们清理掉Session和Cache
+        ShiroUtils.logout();
+        Map<String,Object> map = new HashMap<>();
+        map.put("code",200);
+        map.put("msg","登出");
         return map;
     }
 }

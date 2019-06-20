@@ -74,9 +74,11 @@ public class ShiroRealm extends AuthorizingRealm {
         //通过username从数据库中查找 User对象，如果找到进行验证
         //实际项目中,这里可以根据实际情况做缓存,如果不做,Shiro自己也是有时间间隔机制,2分钟内不会重复执行该方法
         SysUserEntity user = sysUserService.selectUserByName(username);
+        //判断账号是否存在
         if (user == null) {
             throw new AuthenticationException();
         }
+        //判断账号是否被冻结
         if (user.getState()==null||user.getState().equals("PROHIBIT")){
             throw new LockedAccountException();
         }

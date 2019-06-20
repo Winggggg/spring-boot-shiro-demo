@@ -16,8 +16,8 @@ Shiro版本:1.4
 
 Shiro-redis插件版本:3.1.0
 
-#### 表结构:
-SQL脚本在项目中
+#### 数据结构(SQL脚本在项目中):
+表结构:
 ``` sql
 CREATE TABLE `sys_menu` (
   `menu_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '权限ID',
@@ -55,4 +55,21 @@ CREATE TABLE `sys_user_role` (
   `role_id` bigint(11) DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户与角色关系表';
+```
+表数据:
+``` sql
+INSERT INTO `sys_user` VALUES (1, 'admin', 'a1bb09ad5dea12e0f94762cb116c447e80c784d8aa2c6625263f7f3436cdd583', 'RvP3UID2n30Q2sycZYvH', 'NORMAL');
+INSERT INTO `sys_user` VALUES (2, 'user', '376eb5d2698c804ee83594fe8b0217f03ad138a046f7fa42b44c232c2e5e2b38', 'OVlrD37bDUKNcFRB10qG', 'NORMAL');
+INSERT INTO `sys_user_role` VALUES (1, 1, 1);
+INSERT INTO `sys_user_role` VALUES (2, 2, 2);
+INSERT INTO `sys_menu` VALUES (1, '查看用户列表', 'sys:user:info');
+INSERT INTO `sys_menu` VALUES (2, '查看角色列表', 'sys:role:info');
+INSERT INTO `sys_menu` VALUES (3, '查看权限列表', 'sys:menu:info');
+INSERT INTO `sys_menu` VALUES (4, '查看所有数据', 'sys:info:all');
+INSERT INTO `sys_role` VALUES (1, 'ADMIN');
+INSERT INTO `sys_role` VALUES (2, 'USER');
+INSERT INTO `sys_role_menu` VALUES (1, 1, 1);
+INSERT INTO `sys_role_menu` VALUES (2, 1, 2);
+INSERT INTO `sys_role_menu` VALUES (3, 1, 3);
+INSERT INTO `sys_role_menu` VALUES (4, 2, 1);
 ```

@@ -35,7 +35,6 @@ public class UserMenuController {
     @Autowired
     private SysRoleMenuService sysRoleMenuService;
 
-
     /**
      * 获取用户信息集合
      * @Author Sans
@@ -81,7 +80,6 @@ public class UserMenuController {
         return map;
     }
 
-
     /**
      * 获取所有数据
      * @Author Sans
@@ -102,7 +100,7 @@ public class UserMenuController {
     }
 
     /**
-     * 添加管理员角色权限
+     * 添加管理员角色权限(测试动态权限更新)
      * @Author Sans
      * @CreateTime 2019/6/19 10:39
      * @Param  username 用户ID
@@ -123,5 +121,4 @@ public class UserMenuController {
         map.put("msg","权限添加成功");
         return map;
     }
-
 }

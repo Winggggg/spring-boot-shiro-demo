@@ -68,6 +68,7 @@ public class ShiroUtils {
         SysUserEntity sysUserEntity;
         Object attribute = null;
         for(Session sessionInfo : sessions){
+            //遍历Session,找到该用户名称对应的Session
             attribute = sessionInfo.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
             if (attribute == null) {
                 continue;
@@ -80,10 +81,7 @@ public class ShiroUtils {
                 session=sessionInfo;
             }
         }
-        if (session == null) {
-            return;
-        }
-        if (attribute == null) {
+        if (session == null||attribute == null) {
             return;
         }
         //删除session
