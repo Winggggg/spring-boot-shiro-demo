@@ -25,19 +25,17 @@ import java.util.Map;
 @RequestMapping("/userLogin")
 public class UserLoginController {
 
-
     @Autowired
     private SysUserService sysUserService;
 
+    /**
+     * 登录
+     * @Author Sans
+     * @CreateTime 2019/6/20 9:21
+     */
     @RequestMapping("/login")
     public Map<String,Object> login(@RequestBody SysUserEntity sysUserEntity){
         Map<String,Object> map = new HashMap<>();
-        SysUserEntity check = sysUserService.selectUserByName(sysUserEntity.getUsername());
-        if (check==null){
-            map.put("code",500);
-            map.put("msg","用户不存在或者密码错误");
-            return map;
-        }
         //进行身份验证
         try{
             //验证身份和登陆
@@ -66,7 +64,11 @@ public class UserLoginController {
         map.put("token",ShiroUtils.getSession().getId().toString());
         return map;
     }
-
+    /**
+     * 未登录
+     * @Author Sans
+     * @CreateTime 2019/6/20 9:22
+     */
     @RequestMapping("/unauth")
     public Map<String,Object> unauth(){
         Map<String,Object> map = new HashMap<>();
@@ -74,5 +76,4 @@ public class UserLoginController {
         map.put("msg","未登录");
         return map;
     }
-
 }

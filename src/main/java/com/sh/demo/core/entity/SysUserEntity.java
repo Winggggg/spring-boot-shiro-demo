@@ -33,11 +33,8 @@ public class SysUserEntity implements Serializable {
 	 */
 	private String salt;
 	/**
-	 * 邮箱
+	 * 状态:NORMAL正常  PROHIBIT禁用
 	 */
-	private String email;
-	/**
-	 * 手机号
-	 */
-	private String mobile;
+	private String state;
+
 }

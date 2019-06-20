@@ -1,17 +1,17 @@
 /*
  Navicat MySQL Data Transfer
 
- Source Server         : 本地
+ Source Server         : 我的腾讯云
  Source Server Type    : MySQL
- Source Server Version : 50726
- Source Host           : localhost:3306
+ Source Server Version : 50725
+ Source Host           : 140.143.244.170:3306
  Source Schema         : my_shiro
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50725
  File Encoding         : 65001
 
- Date: 19/06/2019 16:11:32
+ Date: 20/06/2019 11:05:03
 */
 
 SET NAMES utf8mb4;
@@ -80,17 +80,15 @@ CREATE TABLE `sys_user`  (
   `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
   `salt` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '盐值',
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `mobile` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号',
-  PRIMARY KEY (`user_id`) USING BTREE,
-  UNIQUE INDEX `username`(`username`) USING BTREE
+  `state` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '状态:NORMAL正常  PROHIBIT禁用',
+  PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', 'a1bb09ad5dea12e0f94762cb116c447e80c784d8aa2c6625263f7f3436cdd583', 'RvP3UID2n30Q2sycZYvH', '1111@qq.com', '1111');
-INSERT INTO `sys_user` VALUES (2, 'user', '376eb5d2698c804ee83594fe8b0217f03ad138a046f7fa42b44c232c2e5e2b38', 'OVlrD37bDUKNcFRB10qG', '2222@qq.com', '2222');
+INSERT INTO `sys_user` VALUES (1, 'admin', 'a1bb09ad5dea12e0f94762cb116c447e80c784d8aa2c6625263f7f3436cdd583', 'RvP3UID2n30Q2sycZYvH', 'NORMAL');
+INSERT INTO `sys_user` VALUES (2, 'user', '376eb5d2698c804ee83594fe8b0217f03ad138a046f7fa42b44c232c2e5e2b38', 'OVlrD37bDUKNcFRB10qG', 'NORMAL');
 
 -- ----------------------------
 -- Table structure for sys_user_role
