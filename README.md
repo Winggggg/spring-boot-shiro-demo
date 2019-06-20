@@ -37,8 +37,7 @@ CREATE TABLE `sys_user` (
   `username` varchar(50) NOT NULL COMMENT '用户名',
   `password` varchar(100) DEFAULT NULL COMMENT '密码',
   `salt` varchar(50) DEFAULT NULL COMMENT '盐值',
-  `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
-  `mobile` varchar(50) DEFAULT NULL COMMENT '手机号',
+  `state` varchar(50) DEFAULT NULL COMMENT '状态:NORMAL正常  PROHIBIT禁用',
   PRIMARY KEY (`user_id`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
