@@ -3,12 +3,12 @@ package com.sh.demo.controller;
 import com.sh.demo.common.util.ShiroUtils;
 import com.sh.demo.core.entity.SysUserEntity;
 import com.sh.demo.core.service.SysUserService;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,10 +38,11 @@ public class UserLoginController {
         Map<String,Object> map = new HashMap<>();
         //进行身份验证
         try{
+            Subject subject = (new Subject.Builder()).buildSubject();
+            ThreadContext.bind(subject);
             //验证身份和登陆
-            Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(sysUserEntity.getUsername(), sysUserEntity.getPassword());
-            //验证成功进行登录操作
+            //进行登录操作
             subject.login(token);
         }catch (IncorrectCredentialsException e) {
             map.put("code",500);
